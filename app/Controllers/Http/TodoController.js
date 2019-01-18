@@ -61,8 +61,8 @@ class TodoController {
    * @param {Response} ctx.response
    */
   async update({ params, request, response }) {
-    const data = request.only(['title', 'content']);
     const todo = await Todo.findOrFail(params.id);
+    const data = request.only(['title', 'content']);
     todo.merge({ ...data });
     todo.save();
     return todo;
@@ -76,7 +76,12 @@ class TodoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {
+  async destroy({ params, auth, request, response }) {
+    const todo = await Todo.findOrFail(params.id);
+    if (todo.user_id != auth.user.id) {
+      return response.status(401);
+    }
+    await todo.delete();
   }
 
 }
