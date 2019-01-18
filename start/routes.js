@@ -22,6 +22,7 @@ Route.post('/authenticate', 'AuthController.authenticate');
 Route.group(() => {
   Route
     .resource('todos', 'TodoController')
-    .apiOnly(); //retira as rotas de formulário
+    .apiOnly() //retira as rotas de formulário
+    //.except('update'); // retirando a rota update
 }).middleware('auth');
 
