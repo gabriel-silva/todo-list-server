@@ -60,9 +60,12 @@ class TodoController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {
+  async update({ params, auth, request, response }) {
     const todo = await Todo.findOrFail(params.id);
     const data = request.only(['title', 'content']);
+    if (todo.user_id != auth.user.id) {
+      return response.status(401);
+    }
     todo.merge({ ...data });
     todo.save();
     return todo;
