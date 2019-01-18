@@ -20,7 +20,7 @@ class TodoController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
-    const todos = await Todo.all();
+    const todos = await Todo.query().with('user').fetch();
     return todos;
   }
 
