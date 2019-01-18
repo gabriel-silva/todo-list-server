@@ -1,7 +1,7 @@
 'use strict'
 
 /** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class TodoSchema extends Schema {
   up() {
@@ -15,8 +15,12 @@ class TodoSchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.string('title', 50).notNullable()
-      table.string('content', 250).notNullable()
+      table
+        .string('title', 50)
+        .notNullable()
+      table
+        .string('content', 250)
+        .notNullable()
       table.timestamps()
     })
   }
@@ -26,4 +30,4 @@ class TodoSchema extends Schema {
   }
 }
 
-module.exports = TodoSchema
+module.exports = TodoSchema;
